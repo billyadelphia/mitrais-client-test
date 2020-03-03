@@ -43,8 +43,9 @@ async function sleep(ms) {
     methods: {
       login() {
         // get the redirect object
-        let app = this
-        axios.post('http://localhost:8081/api/auth/login', {
+        let app = this;
+        let host =  `${process.env.HOST}/api/auth/login` || `http://localhost:8081/api/auth/login`
+        axios.post(host, {
            email: app.email,
             password: app.password
         })

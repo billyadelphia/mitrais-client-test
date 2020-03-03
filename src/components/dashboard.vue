@@ -35,9 +35,9 @@ import axios from "axios";
       const bodyParameters = {
           key: "value"
       };
-
+      let host =  `${process.env.HOST}/api/auth/data` || `http://localhost:8081/api/auth/data`
       axios.post(
-          'http://localhost:8081/api/auth/data',
+          host,
           bodyParameters,
           config
       ).then(function(response) {
