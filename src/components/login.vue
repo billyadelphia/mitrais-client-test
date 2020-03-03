@@ -25,6 +25,7 @@
 
 <script>
 import axios from "axios";
+import config from "../../config";
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -42,9 +43,10 @@ async function sleep(ms) {
     },
     methods: {
       login() {
-        // get the redirect object
         let app = this;
-        let host =  `${process.env.HOST}/api/auth/login` || `http://localhost:8081/api/auth/login`
+        console.log(process.env);
+        let host = config.host || "http://localhost:8081";
+        host = `${host}/api/auth/login`;
         axios.post(host, {
            email: app.email,
             password: app.password

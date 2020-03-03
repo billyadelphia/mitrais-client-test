@@ -18,6 +18,7 @@
 </template>
 <script>
 import axios from "axios";
+import configs from "../../config";
   export default {
     data() {
       return {
@@ -35,7 +36,8 @@ import axios from "axios";
       const bodyParameters = {
           key: "value"
       };
-      let host =  `${process.env.HOST}/api/auth/data` || `http://localhost:8081/api/auth/data`
+      let host = configs.host || "Http://localhost:8081";
+      host = `${host}/api/auth/data`;
       axios.post(
           host,
           bodyParameters,

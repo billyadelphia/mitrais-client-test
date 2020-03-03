@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 import Index from './components/index.vue';
 import auth from './js/auth';
 import router from './router';
+import config from '../config';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 // Set Vue globally
 window.Vue = Vue;
@@ -18,7 +19,8 @@ Vue.router = router;
 Vue.use(VueRouter);
 // Set Vue authentication
 Vue.use(VueAxios, axios);
-axios.defaults.baseURL = `${process.env.HOST}/api` || `http://localhost:8081/api`;
+let host = config.host || "http://localhost:8081";
+axios.defaults.baseURL = `${host}/api`;
 Vue.use(VueAuth, auth);
 // Load Index
 
