@@ -1,54 +1,50 @@
 <template>
-    <nav id="nav">
-        <ul>
-            <!--UNLOGGED-->
-            <!-- <li v-if="!$auth.check()" v-for="(route, key) in routes.unlogged" v-bind:key="route.path">
-                <router-link  :to="{ name : route.path }" :key="key">
-                    {{route.name}}
-                </router-link>
-            </li> -->
-            <!--LOGGED USER-->
-            <!-- <li v-if="$auth.check(1)" v-for="(route, key) in routes.user" v-bind:key="route.path">
-                <router-link  :to="{ name : route.path }" :key="key">
-                    {{route.name}}
-                </router-link>
-            </li> -->
-            <!--LOGOUT-->
-            <li v-if="$auth.check()">
-                <a href="#" @click.prevent="$auth.logout()">Logout</a>
+    <nav id="nav" class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+          
+            <li v-if="!auth" class="nav-item">
+               <router-link class="nav-link" :to="{ name: 'login'}">Login</router-link>
+            </li>
+
+             <li v-if="!auth" class="nav-item">
+               <router-link class="nav-link" :to="{ name: 'register'}">Register</router-link>
+            </li>
+            
+             <li v-if="auth" class="nav-item">
+                <router-link class="nav-link" :to="{ name: 'dashboard'}">Dashboard</router-link>
+            </li>
+      
+            <li v-if="auth" class="nav-item">
+                <a class="nav-link" href="#" v-on:click.prevent="logout">Logout</a>
             </li>
         </ul>
     </nav>
 </template>
 
 <script>
+  import isAuthenticated from '../js/customAuth';
   export default {
     data() {
-      return {
-        routes: {
-          // UNLOGGED
-          unlogged: [
-            {
-              name: 'Inscription',
-              path: 'register'
-            },
-            {
-              name: 'Connexion',
-              path: 'login'
-            }
-          ],
-          // LOGGED USER
-          user: [
-            {
-              name: 'Dashboard',
-              path: 'dashboard'
-            }
-          ],
-        }
-      }
+     return {
+       auth: false
+     }
     },
-    mounted() {
-      //
+
+    created : async function(){
+        this.auth = await isAuthenticated;
+    },
+
+    methods : {
+     
+      logout: async function() {
+         console.log(this.$props);
+        try{
+          localStorage.removeItem('user-token');
+          location.reload();
+        }catch(error){
+          console.log(error)
+        }
+      },
     }
   }
 </script>

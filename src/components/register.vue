@@ -7,14 +7,14 @@
                    <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
                         <label for="mobile_number">Mobile Number</label>
                         <input type="text" required=required id="mobile_number" class="form-control" placeholder="6287827856426" v-model="mobile_number">
-                        <div class="alert alert-danger alert-dismissible fade show" v-if="has_error && errors.mobile_number">
+                        <div class="alert alert-danger alert-dismissible fade show" v-show="has_error && errors.mobile_number">
                            {{ errors.mobile_number }}
                         </div>
                     </div>
                       <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.first_name }">
                         <label for="first_name">First Name</label>
                         <input type="text" required=required id="first_name" class="form-control" v-model="first_name">
-                        <div class="alert alert-danger alert-dismissible fade show" v-if="has_error && errors.first_name">
+                        <div class="alert alert-danger alert-dismissible fade show" v-show="has_error && errors.first_name">
                            {{ errors.first_name }}
                         </div>
                       </div>
@@ -22,7 +22,7 @@
                       <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.last_name }">
                         <label for="last_name">Last Name</label>
                         <input type="text" required=required id="last_name" class="form-control" v-model="last_name">
-                        <div class="alert alert-danger alert-dismissible fade show" v-if="has_error && errors.last_name">
+                        <div class="alert alert-danger alert-dismissible fade show" v-show="has_error && errors.last_name">
                             {{ errors.last_name }}
                         </div>
                       </div>
@@ -54,7 +54,7 @@
                     <div class="form-group" v-bind:class="{ 'has-error': has_error && errors.email }">
                         <label for="email">E-mail</label>
                         <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="email">
-                        <div class="alert alert-danger" v-if="has_error && errors.email">
+                        <div class="alert alert-danger" v-show="has_error && errors.email">
                            {{ errors.email }}
                         </div>
                     </div>
@@ -106,7 +106,10 @@ import DateDropdown from '../components/_dropdown';
     },
     methods: {
       register() {
-        let app = this
+     
+        let app = this;
+        app.has_error = false;
+        app.errors = {};
         let validated = true;
         if (app.mobile_number.substring(0, 1) !== "0" && app.mobile_number.substring(0, 2) !== "62") {
               app.errors = Object.assign(app.errors, {mobile_number : "Please enter valid Indonesian phone number!"})
@@ -133,17 +136,19 @@ import DateDropdown from '../components/_dropdown';
             date_of_birth: app.date_of_birth,
           },
           success: function () {
-            app.success = true
+            app.success = true;
+            app.has_error = false;
             this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
           },
           error: function (res) {
             if(res.response.data.message && res.response.data.message.length){
+             // console.log(res.response.data.message)
               for(const message of res.response.data.message ){
                 app.errors[message.path] = message.message
               }
             }
             app.has_error = true
-           // console.error(app.errors);
+            console.error(app.errors);
           }
         })
         }

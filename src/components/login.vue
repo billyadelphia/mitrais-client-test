@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="card card-default">
-            <div class="card-header">Connexion</div>
+            <div class="card-header">Login</div>
 
             <div class="card-body">
                 <div class="alert alert-danger" v-if="has_error">
@@ -25,6 +25,9 @@
 
 <script>
 import axios from "axios";
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
   export default {
     data() {
       return {
@@ -45,10 +48,11 @@ import axios from "axios";
            email: app.email,
             password: app.password
         })
-        .then(function (response) {
+        .then(async function (response) {
            // handle redirection
            localStorage.setItem('user-token', response.data.token);
-            app.$router.push({name: "dashboard"})
+           await sleep(100)
+           location.reload();
         })
         .catch(function (error) {
           app.has_error = true;
