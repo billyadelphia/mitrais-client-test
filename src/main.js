@@ -19,7 +19,7 @@ Vue.router = router;
 Vue.use(VueRouter);
 // Set Vue authentication
 Vue.use(VueAxios, axios);
-let host = config.host || "http://localhost:8081";
+let host = config.serverHost || "http://localhost:8081";
 axios.defaults.baseURL = `${host}/api`;
 Vue.use(VueAuth, auth);
 // Load Index

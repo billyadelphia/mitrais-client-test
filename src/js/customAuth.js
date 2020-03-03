@@ -8,7 +8,7 @@ const config = {
 const bodyParameters = {
     key: "value"
 };
-let host = configs.host || "Http://localhost:8081";
+let host = configs.serverHost || "Http://localhost:8081";
 host = `${host}/api/auth/checkLogin`;
 export default axios.post(
     host,

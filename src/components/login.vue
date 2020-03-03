@@ -45,7 +45,7 @@ async function sleep(ms) {
       login() {
         let app = this;
         console.log(process.env);
-        let host = config.host || "http://localhost:8081";
+        let host = config.serverHost || "http://localhost:8081";
         host = `${host}/api/auth/login`;
         axios.post(host, {
            email: app.email,

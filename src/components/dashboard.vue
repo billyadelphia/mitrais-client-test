@@ -36,7 +36,7 @@ import configs from "../../config";
       const bodyParameters = {
           key: "value"
       };
-      let host = configs.host || "Http://localhost:8081";
+      let host = configs.serverHost || "Http://localhost:8081";
       host = `${host}/api/auth/data`;
       axios.post(
           host,
