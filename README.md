@@ -1,4 +1,4 @@
-# mitrais-client
+# mitrais-client build with Vue.js
 
 ## Project setup
 ```
