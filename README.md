@@ -3,9 +3,9 @@
 ## Project setup
 ```
 npm install
-cp .env.example .env
+cp config.example.js config.js
 ```
-Please configure the .env file
+Please configure the config.js file
 
 ### Compiles and hot-reloads for development
 ```
